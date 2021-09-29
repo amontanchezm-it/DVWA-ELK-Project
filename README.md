@@ -86,7 +86,7 @@ The following screenshot displays the ELK NSG:
 ![ELK NSG](Images/NSG-ELK.png)
 [ELK NSG](Images/NSG-ELK.png)
 
-### Elk Configuration
+### ELK Results
 
 The following images displays the results of a proper configuration and information being reported.
 - [Filebeat configuration](Images/Syslog_config.png)
