@@ -115,7 +115,8 @@ SSH into the control node and follow the steps below:
 - Update the _hosts_ file to include the target servers.
 - Run the playbook, and navigate to one of the web applications to check that the installation worked as expected.
 
-- _Which file is the playbook? Where do you copy it?_
+  
+- _Which file is the playbook? Where do you copy it?_  
    The playbook is the YAML file, and we copied it to /etc/ansible  
 - _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
    We updated the hosts file, and we specify the machine(s) by creating collections.  
