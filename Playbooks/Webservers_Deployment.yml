@@ -1,0 +1,88 @@
+---
+  - name: Config the Webserver with Docker
+    hosts: webservers
+    become: true
+    tasks:
+    
+    #Web servers deployment
+    - name: Install docker.io
+      apt:
+        update_cache: yes
+        name: docker.io
+        state: present
+
+    - name: Install python3-pip
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install docker
+      pip:
+        name: docker
+        state: present
+
+    - name: Install DVWA container
+      docker_container:
+        name: dvwa
+        image: cyberxsecurity/dvwa
+        state: started
+        restart_policy: always
+        published_ports: 80:80
+
+    - name: Start Docker service
+      systemd:
+        name: docker
+        state: started
+
+    #Filebeat deployment
+    - name: Download the DEB file
+      command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.1-amd64.deb
+
+    - name: Install Filebeat DEB
+      command: dpkg -i filebeat-7.6.1-amd64.deb
+
+    - name: drop in filebeat.yml
+      copy:
+        src: /etc/ansible/configuration_files/filebeat-config.yml
+        dest: /etc/filebeat/filebeat.yml
+
+    - name: enable and configure system module
+      command: filebeat modules enable system
+
+    - name: setup filebeat
+      command: filebeat setup
+
+    - name: start filebeat service
+      command: service filebeat start
+
+    - name: enable service filebeat on boot
+      systemd:
+        name: filebeat
+        enabled: yes
+    
+    #MetricBeat deployment
+    - name: Download the DEB file
+      command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.6.1-amd64.deb
+
+    - name: Install MetricBeat DEB
+      command: dpkg -i metricbeat-7.6.1-amd64.deb
+
+    - name: drop config file in filebeat.yml
+      copy:
+        src: /etc/ansible/configuration_files/metricbeat-config.yml
+        dest: /etc/metricbeat/metricbeat.yml
+
+    - name: enable and configure docker module
+      command: metricbeat modules enable docker
+
+    - name: setup metricbeat
+      command: metricbeat setup
+
+    - name: start metricbeat service
+      command: service metricbeat start
+
+    - name: enable service filebeat on boot
+      systemd:
+        name: metricbeat
+        enabled: yes
+        
