@@ -81,17 +81,31 @@ The following screenshot displays the result of running `docker ps` after succes
 ![ELK Docker](Images/ELK_docker.png)
 [ELK Docker result](Images/ELK_docker.png)
 
+The following screenshot displays the ELK NSG:
+
+![ELK NSG](Images/NSG-ELK.png)
+[ELK NSG](Images/NSG-ELK.png)
+
+### Elk Configuration
+
+The following images displays the results of a proper configuration and information being reported.
+- [Filebeat configuration](Images/Syslog_config.png)
+- [Filebeat dashboard](Images/Syslog_dashboard.png)
+- [Metricbeat configuration](Images/Docker_metrics_config.png)
+- [Metricbeat dashboard](Docker_metrics.png)
+
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
 - Web-1 (10.0.0.5)
 - Web-2 (10.0.0.6)
 
 We have installed the following Beats on these machines:
-- Web-1 (10.0.0.5)
-- Web-2 (10.0.0.6)
+- FileBeat
+- MetricBeat
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- **Filebeat** allows us to collect system logs which could be used to track specific security related system events.
+- **Metricbeat** in the other hand is gathering specific information about docker performance, which is helpful to monitor network connectiviry, bandwidth, etc.
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
@@ -101,7 +115,6 @@ SSH into the control node and follow the steps below:
 - Update the _hosts_ file to include the target servers.
 - Run the playbook, and navigate to one of the web applications to check that the installation worked as expected.
 
-_TODO: Answer the following questions to fill in the blanks:_
 - _Which file is the playbook? Where do you copy it?_
    The playbook is the YAML file, and we copied it to /etc/ansible
 - _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
