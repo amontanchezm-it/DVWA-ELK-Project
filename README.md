@@ -53,13 +53,14 @@ Machines within the network can only be accessed by the Jump-Box using SSH.
 The following picture displays the Red Team Network Security Group (NSG) configuration:
 
 ![Red Team NSG](Images/NSG-RedTeam.png)
+[NSG-RedTeam](Images/NSG-RedTeam.png)
 
 A summary of the access policies in place can be found in the table below.
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
 |----------|---------------------|----------------------|
 | Jump Box | Yes                 | 64.137.146.81        |
-| Load Bal | Yes                 | 64.137.146.81        |
+| Load Balancer | Yes                 | 64.137.146.81        |
 | Web-1    | No                  | 10.0.0.4             |
 | Web-2    | No                  | 10.0.0.4             |
 | ELK      | No                  | 10.0.0.4             |
